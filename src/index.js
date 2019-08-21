@@ -34,7 +34,7 @@ const typeDefs = gql`
     author: String
   }
 
-  # ! es atributo requerido
+  # ! se marca cuando un atributo será requerido
   type Person {
       name: String!
       age: Int

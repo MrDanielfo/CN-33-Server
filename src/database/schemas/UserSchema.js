@@ -22,14 +22,8 @@ const UserSchema = new Schema({
     gender: {
         type: String,
         enum: ['Hombre', 'Mujer']
-    },
-    post: [
-        {
-            type : mongoose.Schema.Types.ObjectId,
-            ref: 'posts'
-        }
-    ]}, 
-    { timestamps: true });
+    }
+},{ timestamps: true });
 
 mongoose.Types.ObjectId.prototype.valueOf = function () {
     return this.toString();
