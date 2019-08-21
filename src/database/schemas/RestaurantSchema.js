@@ -11,10 +11,10 @@ const RestaurantSchema = new Schema({
         required: true
     },
     category: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'RestaurantCategory'
     },
-    menu: [
+    menus: [
         {
             name : {
                 type: String,
@@ -25,7 +25,7 @@ const RestaurantSchema = new Schema({
                 required: false
             },
             menuCategory: {
-                type: mongoose.Schema.Types.ObjectId,
+                type: Schema.Types.ObjectId,
                 ref: 'MenuCategory'
             },
             price : {

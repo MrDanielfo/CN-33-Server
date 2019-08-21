@@ -4,30 +4,30 @@ const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
     user: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    order: [
+    orders: [
         {
             restaurant: {
-                type: mongoose.Schema.Types.ObjectId,
+                type: Schema.Types.ObjectId,
                 ref: 'Restaurant'
             },
             deliverier: {
-                type: mongoose.Schema.Types.ObjectId,
+                type: Schema.Types.ObjectId,
                 ref: 'Deliverier'
             },
             orderName: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Restaurant.menu.name'
+                type: Schema.Types.ObjectId,
+                ref: 'Restaurant'
             },
             pieces: {
                 type: Number,
                 default: 1
             },
             pricePerPiece: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Restaurant.menu.price'
+                type: Schema.Types.ObjectId,
+                ref: 'Restaurant'
             },
             sendPrice: {
                 type: Number,
