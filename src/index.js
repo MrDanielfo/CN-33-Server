@@ -1,7 +1,12 @@
-const { ApolloServer, gql } = require('apollo-server');
-const mongoose = require('mongoose');
+import { ApolloServer } from 'apollo-server';
+import mongoose from 'mongoose';
 
 require("dotenv").config();
+
+import { UserModel } from './database/models/index';
+
+import typeDefs from './graphql/schema';
+import resolvers from './graphql/resolvers';
 
 mongoose.connect(process.env.DATABASE, {
   useCreateIndex: true,
@@ -14,64 +19,26 @@ const connection = mongoose.connection;
 connection.on('error', console.error.bind(console, 'Error de Conexión'));
 connection.on('open', () => console.log('DB Conectada'));
 
-// const books = [
-//   {
-//     title: 'Harry Potter and the Chamber of Secrets',
-//     author: 'J.K. Rowling',
-//   },
-//   {
-//     title: 'Jurassic Park',
-//     author: 'Michael Crichton',
-//   },
-// ];
+const server = new ApolloServer({ typeDefs, resolvers });
 
-// const persons = [
-//     {
-//         name: 'Barack Obama',
-//         age: 55,
-//     },
-//     {
-//         name: 'Donald Trump',
-//         age: 70,
-//     },
-// ];
+server.listen({port: process.env.PORT }).then(({ url }) => {
+   console.log(`🚀  Server ready at ${url}`);
+});
 
+// const User = {
+//   name: "Pedro",
+//   lastName: "Páramos",
+//   email: "pedro@gmail.com",
+//   password: "pedrito34",
+//   gender : 'Hombre'
+// }
 
+// const createUser = async () => {
+//   try {
+//     const newUser = await UserModel.create(User);
+//     console.log(newUser)
 
-// Schema
-// const typeDefs = gql`
-//   # Comments in GraphQL are defined with the hash (#) symbol.
-
-//   # This "Book" type can be used in other type declarations.
-//   type Book {
-//     title: String
-//     author: String
+//   } catch(err) {
+//     console.log(err)
 //   }
-
-//   # ! se marca cuando un atributo será requerido
-//   type Person {
-//       name: String!
-//       age: Int
-//   }
-
-//   # The "Query" type is the root of all GraphQL queries.
-//   # (A "Mutation" type will be covered later on.)
-//   type Query {
-//     books: [Book]
-//     getPersons: [Person]
-//   }
-// `;
-
-
-// const resolvers = {
-//   Query: {
-//     books: () => books,
-//     getPersons: () => persons
-//   },
-// };
-
-// const server = new ApolloServer({ typeDefs, resolvers });
-
-// server.listen().then(({ url }) => {
-//   console.log(`🚀  Server ready at ${url}`);
-// });
+// }

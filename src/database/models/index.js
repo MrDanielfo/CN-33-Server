@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 // Schemas
 const UserSchema = require('../schemas/UserSchema');
 const DeliverierSchema = require('../schemas/DeliverierSchema');
@@ -16,7 +16,7 @@ const RestaurantCategoryModel = mongoose.model('RestaurantCategories', Restauran
 const MenuCategoriesModel = mongoose.model('MenuCategories', MenuCategoriesSchema);
 
 // Module exports
-module.exports = {
+export {
     UserModel,
     DeliverierModel,
     OrderModel,
