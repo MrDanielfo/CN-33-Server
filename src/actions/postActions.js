@@ -5,6 +5,14 @@ export const createUser = async (user) => {
      return await UserModel.create(user);
      
    } catch(err) {
-     console.log(err)
+     return null;
    }
-}
+};
+
+export const getUsers = async () => {
+    try {
+        return await UserModel.find();
+    } catch (err) {
+        console.log(err)
+    }
+};

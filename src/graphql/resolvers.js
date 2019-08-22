@@ -1,4 +1,4 @@
- import {  createUser } from '../actions/postActions';
+ import {  createUser, getUsers } from '../actions/postActions';
  
  const books = [
    {
@@ -11,14 +11,20 @@
    }
  ];
 
- 
- 
  const resolvers = {
    Query: {
-     books: () => books
+     books: () => books,
+     getUsers: async(parent, args, context, info) => {
+         try {
+            return await getUsers();
+         } catch (err) {
+            return null;
+         }
+     }
    },
    Mutation: {
-       addUser: async (parent, args, context, info ) => await createUser(args.data)
+     addUser: async (parent, args, context, info) =>
+       await createUser(args.data)
    }
  };
 

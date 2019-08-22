@@ -18,6 +18,7 @@ const typeDefs = gql`
 
   type Query {
     books: [Book]
+    getUsers: [User]
   }
 
   input UserInput {
