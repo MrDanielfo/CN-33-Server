@@ -3,8 +3,6 @@ import mongoose from 'mongoose';
 
 require("dotenv").config();
 
-import { UserModel } from './database/models/index';
-
 import typeDefs from './graphql/schema';
 import resolvers from './graphql/resolvers';
 
@@ -24,21 +22,3 @@ const server = new ApolloServer({ typeDefs, resolvers });
 server.listen({port: process.env.PORT }).then(({ url }) => {
    console.log(`🚀  Server ready at ${url}`);
 });
-
-// const User = {
-//   name: "Pedro",
-//   lastName: "Páramos",
-//   email: "pedro@gmail.com",
-//   password: "pedrito34",
-//   gender : 'Hombre'
-// }
-
-// const createUser = async () => {
-//   try {
-//     const newUser = await UserModel.create(User);
-//     console.log(newUser)
-
-//   } catch(err) {
-//     console.log(err)
-//   }
-// }
