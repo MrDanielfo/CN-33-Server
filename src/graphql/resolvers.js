@@ -1,4 +1,4 @@
- import {  createUser, getUsers } from '../actions/postActions';
+ import {  createUser, getUsers, updateUser } from '../actions/postActions';
  
  const books = [
    {
@@ -23,8 +23,19 @@
      }
    },
    Mutation: {
-     addUser: async (parent, args, context, info) =>
-       await createUser(args.data)
+     addUser: async (parent, args, context, info) => {
+        await createUser(args.data);
+     },
+     updateUser: async(parent, {data, userID }, context, info) => {
+       try {
+         const filter  = { _id: userID}
+         const update = { $set: {...data} }
+         return await updateUser(filter, update);
+       } catch (err) {
+         return err;
+       }
+     }
+       
    }
  };
 

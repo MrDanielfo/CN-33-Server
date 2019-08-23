@@ -31,6 +31,7 @@ const typeDefs = gql`
 
   type Mutation {
     addUser(data: UserInput): User
+    updateUser(data: UserInput, userID: ID): User
   }
 `;
 

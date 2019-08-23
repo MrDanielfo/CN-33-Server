@@ -16,3 +16,14 @@ export const getUsers = async () => {
         console.log(err)
     }
 };
+
+export const updateUser = async (filter, update) => {
+  // ver el { new: true }
+  try {
+    const modified = UserModel.findOneAndUpdate(filter, update, { new: true });
+    return await modified;
+  } catch (err) {
+      return err;
+  }
+
+}
