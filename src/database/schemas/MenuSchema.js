@@ -1,24 +1,28 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const RestaurantSchema = new Schema({
+const MenuSchema = new Schema({
     name: {
         type: String,
         required: true
     },
-    address: {
+    description: {
         type: String,
+        required: false
+    },
+    menuCategoryID: {
+        type: Schema.Types.ObjectId,
+        ref: 'menucategories',
         required: true
     },
-    restaurantCategoryID: {
-        type: Schema.Types.ObjectId,
-        ref: 'restaurantcategories',
+    price: {
+        type: Number,
         required: true
     }
-});
+}, { timestamps: true });
 
 mongoose.Types.ObjectId.prototype.valueOf = function () {
     return this.toString();
 };
 
-module.exports = RestaurantSchema;
+module.exports = MenuSchema;

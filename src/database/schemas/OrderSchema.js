@@ -5,21 +5,21 @@ const Schema = mongoose.Schema;
 const OrderSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'users'
     },
     orders: [
         {
             restaurant: {
                 type: Schema.Types.ObjectId,
-                ref: 'Restaurant'
+                ref: 'restaurants'
             },
             deliverier: {
                 type: Schema.Types.ObjectId,
-                ref: 'Deliverier'
+                ref: 'deliveriers'
             },
             orderName: {
                 type: Schema.Types.ObjectId,
-                ref: 'Restaurant'
+                ref: 'restaurants'
             },
             pieces: {
                 type: Number,
@@ -27,7 +27,7 @@ const OrderSchema = new Schema({
             },
             pricePerPiece: {
                 type: Schema.Types.ObjectId,
-                ref: 'Restaurant'
+                ref: 'restaurants'
             },
             sendPrice: {
                 type: Number,
