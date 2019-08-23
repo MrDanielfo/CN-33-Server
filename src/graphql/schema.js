@@ -16,9 +16,21 @@ const typeDefs = gql`
     gender: String
   }
 
+  type RCategory {
+    _id: ID
+    name: String
+  }
+
+  type MCategory {
+    _id: ID
+    name: String
+  }
+
   type Query {
     books: [Book]
     getUsers: [User]
+    getRestaurantCategories: [RCategory]
+    getMenuCategories: [MCategory]
   }
 
   input UserInput {
@@ -29,9 +41,21 @@ const typeDefs = gql`
     gender: String
   }
 
+  input RCategoryInput {
+    name: String
+  }
+
+  input MCategoryInput {
+    name: String
+  }
+
   type Mutation {
     addUser(data: UserInput): User
     updateUser(data: UserInput, userID: ID): User
+    addRestaurantCategory(data: RCategoryInput) : RCategory
+    updateRestaurantCategory(data: RCategoryInput, rCategoryID: ID): RCategory
+    addMenuCategory(data: MCategoryInput) : MCategory
+    updateMenuCategory(data: MCategoryInput, mCategoryID: ID) : MCategory
   }
 `;
 

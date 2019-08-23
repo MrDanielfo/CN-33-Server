@@ -13,7 +13,7 @@ const DeliverierModel = mongoose.model('Deliveriers', DeliverierSchema);
 const OrderModel = mongoose.model('Orders', OrderSchema);
 const RestaurantModel = mongoose.model('Restaurants', RestaurantSchema);
 const RestaurantCategoryModel = mongoose.model('RestaurantCategories', RestaurantCategoriesSchema);
-const MenuCategoriesModel = mongoose.model('MenuCategories', MenuCategoriesSchema);
+const MenuCategoryModel = mongoose.model('MenuCategories', MenuCategoriesSchema);
 
 // Module exports
 export {
@@ -22,5 +22,5 @@ export {
     OrderModel,
     RestaurantModel,
     RestaurantCategoryModel,
-    MenuCategoriesModel
+    MenuCategoryModel
 };
