@@ -1,10 +1,18 @@
 import { gql } from 'apollo-server';
 
-
 const typeDefs = gql`
+  
+  # Directive
+  directive @AuthDirective on QUERY | FIELD_DEFINITION | FIELD
+
   type Book {
     title: String
     author: String
+  }
+
+  enum Gender {
+    HOMBRE
+    MUJER
   }
 
   type User {
@@ -13,19 +21,26 @@ const typeDefs = gql`
     lastName: String
     email: String
     password: String
-    gender: String
+    gender: Gender
   }
+
+  type Token {
+    token: String
+  }
+
 
   type Restaurant {
     _id: ID
     name: String
     address: String
     restaurantCategoryID: ID
+    menus: [Menu]
   }
 
   type RCategory {
     _id: ID
     name: String
+    restaurants: [Restaurant]
   }
 
   type Menu {
@@ -34,15 +49,17 @@ const typeDefs = gql`
     description: String
     menuCategoryID: ID
     price: Int
+    restaurantID: ID
   }
 
   type MCategory {
     _id: ID
     name: String
+    menus: [Menu]
   }
 
   type Query {
-    books: [Book]
+    books: [Book] @AuthDirective
     getUsers: [User]
     getRestaurants: [Restaurant]
     getRestaurantCategories: [RCategory]
@@ -51,11 +68,11 @@ const typeDefs = gql`
   }
 
   input UserInput {
-    name: String
+    name: String!
     lastName: String
     email: String
     password: String
-    gender: String
+    gender: Gender
   }
 
   input RestaurantInput {
@@ -73,6 +90,7 @@ const typeDefs = gql`
     description: String
     menuCategoryID: ID
     price: Int
+    restaurantID: ID
   }
 
   input MCategoryInput {
@@ -80,7 +98,8 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addUser(data: UserInput): User
+    addUser(data: UserInput): Token
+    doLogin(email: String, password: String) : Token
     updateUser(data: UserInput, userID: ID): User
     addRestaurant(data: RestaurantInput): Restaurant
     updateRestaurant(data: RestaurantInput, restaurantID: ID): Restaurant

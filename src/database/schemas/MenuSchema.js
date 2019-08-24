@@ -18,6 +18,11 @@ const MenuSchema = new Schema({
     price: {
         type: Number,
         required: true
+    },
+    restaurantID: {
+        type: Schema.Types.ObjectId,
+        ref: 'restaurants',
+        required: true
     }
 }, { timestamps: true });
 

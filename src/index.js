@@ -1,6 +1,8 @@
 import { ApolloServer } from 'apollo-server';
 import mongoose from 'mongoose';
 
+import { getContext, AuthDirective } from './actions/authActions';
+
 require("dotenv").config();
 
 import typeDefs from './graphql/schema';
@@ -17,7 +19,14 @@ const connection = mongoose.connection;
 connection.on('error', console.error.bind(console, 'Error de Conexión'));
 connection.on('open', () => console.log('DB Conectada'));
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({ 
+  typeDefs, 
+  resolvers,
+  schemaDirectives: {
+    AuthDirective: AuthDirective
+  },
+  context: async ({req}) => getContext(req)
+});
 
 server.listen({port: process.env.PORT }).then(({ url }) => {
    console.log(`🚀  Server ready at ${url}`);

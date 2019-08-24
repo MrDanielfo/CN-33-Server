@@ -1,4 +1,4 @@
- import {  createUser, getUsers, updateUser } from '../actions/userActions';
+ import {  createUser, getUsers, updateUser, doLoginAction } from '../actions/userActions';
 
  import { createRestaurant, getRestaurants, updateRestaurant } from '../actions/restaurantActions';
 
@@ -65,8 +65,20 @@
    },
    Mutation: {
      addUser: async (parent, args, context, info) => {
-       await createUser(args.data);
+       try {
+         return await createUser(args.data);
+       } catch (err) {
+         return err;
+       }
+       
      },
+    doLogin: async (parent, { email, password }, context, info) => {
+        try {
+          return await doLoginAction(email, password);
+        } catch (err) {
+          return error; 
+      }
+    },
      updateUser: async (parent, { data, userID }, context, info) => {
        try {
          const filter = { _id: userID };

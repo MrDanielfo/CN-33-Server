@@ -1,8 +1,12 @@
 import { RestaurantModel } from '../database/models/index';
+import { updateRestaurantCategory  } from './rCategoriesActions';
 
-export const createRestaurant = async (menu) => {
+export const createRestaurant = async (restaurant) => {
     try {
-        const RestaurantCreated = await RestaurantModel.create(menu);
+        const RestaurantCreated = await RestaurantModel.create(restaurant);
+        const filter =  { _id : restaurant.restaurantCategoryID };
+        const update = { $push: { 'restaurants': RestaurantCreated._id } }
+        await updateRestaurantCategory(filter, update);
         return RestaurantCreated;
 
     } catch (err) {

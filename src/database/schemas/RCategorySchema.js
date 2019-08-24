@@ -5,7 +5,13 @@ const RestaurantCategorySchema = new Schema({
     name: {
         type: String,
         required: true
-    }
+    },
+    restaurants: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'restaurants'
+      }
+    ]
 });
 
 mongoose.Types.ObjectId.prototype.valueOf = function() {
