@@ -10,7 +10,11 @@ export const createMenuCategory = async mCategory => {
 
 export const getMenuCategories = async () => {
   try {
-    return await MenuCategoryModel.find();
+    return await MenuCategoryModel.find().populate('menus', [
+      'name',
+      'description',
+      'menuImage'
+    ]);
   } catch (err) {
     console.log(err);
   }

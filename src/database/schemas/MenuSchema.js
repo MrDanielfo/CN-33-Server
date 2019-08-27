@@ -12,7 +12,7 @@ const MenuSchema = new Schema({
     },
     menuCategoryID: {
         type: Schema.Types.ObjectId,
-        ref: 'menucategories',
+        ref: 'MenuCategories',
         required: true
     },
     price: {
@@ -25,7 +25,7 @@ const MenuSchema = new Schema({
     },
     restaurantID: {
         type: Schema.Types.ObjectId,
-        ref: 'restaurants',
+        ref: 'Restaurants',
         required: true
     }
 }, { timestamps: true });

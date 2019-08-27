@@ -13,7 +13,7 @@ const MenuCategorySchema = new Schema({
     menus: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'menus'
+        ref: 'Menus'
       }
     ]
 });

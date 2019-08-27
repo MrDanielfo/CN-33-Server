@@ -10,7 +10,7 @@ export const createRestaurantCategory = async rCategory => {
 
 export const getRestaurantCategories = async () => {
   try {
-    return await RestaurantCategoryModel.find();
+    return await RestaurantCategoryModel.find().populate('restaurants', ['name', 'address']);
   } catch (err) {
     console.log(err);
   }
