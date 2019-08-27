@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+import bcrypt from 'bcrypt';
 
 const Schema = mongoose.Schema;
 
@@ -32,13 +33,13 @@ const DeliverierSchema = new Schema(
       type: String,
       required: true
     },
-    dateofBirth: {
+    dateBirth: {
       type: Date,
       required: true
     },
     vehicle: {
       type: String,
-      enum: ['Automóvil', 'Motocicleta', 'Bicicleta']
+      enum: ['AUTOMOVIL', 'MOTOCICLETA', 'BICICLETA']
     },
     officialId: {
       type: String,
@@ -54,11 +55,7 @@ const DeliverierSchema = new Schema(
     },
     gender: {
       type: String,
-      enum: ['Hombre', 'Mujer']
-    },
-    date: {
-      type: Date,
-      default: Date.now()
+      enum: ['HOMBRE', 'MUJER']
     }
   },
   { timestamps: true }
@@ -67,5 +64,17 @@ const DeliverierSchema = new Schema(
 mongoose.Types.ObjectId.prototype.valueOf = function() {
   return this.toString();
 };
+
+DeliverierSchema.pre("save", function (next) {
+  let deliverier = this;
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(deliverier.password, salt, (err, hash) => {
+      if (err) return next(err);
+      deliverier.password = hash;
+      next();
+    })
+  })
+
+})
 
 module.exports = DeliverierSchema;

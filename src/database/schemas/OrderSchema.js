@@ -41,6 +41,11 @@ const OrderSchema = new Schema({
                 type: Boolean,
                 default: false
             },
+            /* o bien puede llamarse status y ser un enum */
+            paid: {
+                type: Boolean,
+                default: false
+            },
             date: {
                 type: Date,
                 default: Date.now()

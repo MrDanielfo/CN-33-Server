@@ -19,7 +19,9 @@ export const createMenu = async (menu) => {
 
 export const getMenus = async () => {
     try {
-        return await MenuModel.find();
+        return await MenuModel.find()
+        .populate('menuCategoryID', ['name', 'menuCategoryImage'])
+        .populate('restaurantID', ['name', 'address', 'restaurantImage']);
     } catch (err) {
         console.log(err)
     }

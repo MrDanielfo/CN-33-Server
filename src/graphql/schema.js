@@ -15,6 +15,12 @@ const typeDefs = gql`
     MUJER
   }
 
+  enum Vehicle {
+    AUTOMOVIL
+    MOTOCICLETA
+    BICICLETA
+  }
+
   type User {
     _id: ID
     name: String
@@ -24,16 +30,31 @@ const typeDefs = gql`
     gender: Gender
   }
 
+  type Deliverier {
+    name: String
+    lastName: String
+    email: String
+    password: String
+    city: String
+    country: String
+    zipcode: String
+    dateBirth: String
+    vehicle: Vehicle
+    officialId: String
+    driverLicense: String
+    vehicleLicense: String
+    gender: Gender
+  }
+
   type Token {
     token: String
   }
-
 
   type Restaurant {
     _id: ID
     name: String
     address: String
-    restaurantCategoryID: ID
+    restaurantCategoryID: RCategory
     restaurantImage: String
     menus: [Menu]
   }
@@ -49,10 +70,10 @@ const typeDefs = gql`
     _id: ID
     name: String
     description: String
-    menuCategoryID: ID
+    menuCategoryID: MCategory
     price: Int
     menuImage: String
-    restaurantID: ID
+    restaurantID: Restaurant
   }
 
   type MCategory {
@@ -65,6 +86,7 @@ const typeDefs = gql`
   type Query {
     books: [Book] @AuthDirective
     getUsers: [User] @AuthDirective
+    getDeliveriers: [Deliverier] @AuthDirective
     getRestaurants: [Restaurant]
     getRestaurantCategories: [RCategory]
     getMenus: [Menu]
@@ -73,9 +95,25 @@ const typeDefs = gql`
 
   input UserInput {
     name: String!
-    lastName: String
-    email: String
-    password: String
+    lastName: String!
+    email: String!
+    password: String!
+    gender: Gender
+  }
+
+  input DeliverierInput {
+    name: String!
+    lastName: String!
+    email: String!
+    password: String!
+    city: String!
+    country: String!
+    zipcode: String!
+    dateBirth: String!
+    vehicle: Vehicle
+    officialId: String!
+    driverLicense: String
+    vehicleLicense: String
     gender: Gender
   }
 
@@ -107,7 +145,9 @@ const typeDefs = gql`
 
   type Mutation {
     addUser(data: UserInput): Token
+    addDeliverier(data: DeliverierInput): Token
     doLogin(email: String, password: String) : Token
+    doLoginDeliveriers(email: String, password: String) : Token
     updateUser(data: UserInput, userID: ID): User
     addRestaurant(data: RestaurantInput): Restaurant
     updateRestaurant(data: RestaurantInput, restaurantID: ID): Restaurant

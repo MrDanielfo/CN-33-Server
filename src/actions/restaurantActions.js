@@ -17,7 +17,8 @@ export const createRestaurant = async (restaurant) => {
 export const getRestaurants = async () => {
     try {
         return await RestaurantModel.find()
-          .populate('menus', ['name', 'description', 'menuImage']);
+          .populate('menus', ['name', 'description', 'menuImage', 'price'])
+          .populate('restaurantCategoryID', ['name', 'restaurantCategoryImage']);
     } catch (err) {
         console.log(err)
     }

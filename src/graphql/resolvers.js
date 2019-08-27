@@ -1,18 +1,25 @@
- import {  createUser, getUsers, updateUser, doLoginAction } from '../actions/userActions';
+import {  
+   createUser, 
+   getUsers, 
+   updateUser, 
+   doLoginAction 
+  } from '../actions/userActions';
 
- import { createRestaurant, getRestaurants, updateRestaurant } from '../actions/restaurantActions';
+import { createDeliverier, getDeliveriers, doLoginDeliveriers } from '../actions/deliverierActions';
 
- import { createRestaurantCategory, getRestaurantCategories, updateRestaurantCategory } from '../actions/rCategoriesActions';
+import { createRestaurant, getRestaurants, updateRestaurant } from '../actions/restaurantActions';
 
- import {
+import { createRestaurantCategory, getRestaurantCategories, updateRestaurantCategory } from '../actions/rCategoriesActions';
+
+import {
    createMenuCategory,
    getMenuCategories,
    updateMenuCategory
  } from '../actions/mCategoriesActions';
 
- import { createMenu, getMenus, updateMenu } from '../actions/menuActions';
+import { createMenu, getMenus, updateMenu } from '../actions/menuActions';
 
- import { storeUpload } from '../utils/uploader';
+import { storeUpload } from '../utils/uploader';
 
  
  const books = [
@@ -35,6 +42,13 @@
        } catch (err) {
          return err;
        }
+     },
+     getDeliveriers: async() => {
+        try {
+          return await getDeliveriers();
+        } catch (err) {
+          return err; 
+        }
      },
      getRestaurants: async (parent, args, context, info) => {
        try {
@@ -74,12 +88,26 @@
        }
        
      },
+     addDeliverier: async(parent, args, context, info) => {
+        try {
+          return await createDeliverier(args.data);
+        } catch (err) {
+          return err;
+        }
+     },
     doLogin: async (parent, { email, password }, context, info) => {
         try {
           return await doLoginAction(email, password);
         } catch (err) {
           return error; 
       }
+    },
+    doLoginDeliveriers: async (parent, { email, password }, context, info) => {
+      try {
+          return await doLoginDeliveriers(email, password);
+        } catch (err) {
+          return error;
+        }
     },
      updateUser: async (parent, { data, userID }, context, info) => {
        try {

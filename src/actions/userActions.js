@@ -10,7 +10,7 @@ Date.prototype.addDays = function (days) {
   return date;
 }
 
-// creamos una funcion que recive la data del usuario y genera un token nuevo con fecha de expiracion
+// creamos una funcion que recibe la data del usuario y genera un token nuevo con fecha de expiracion
 // paso 1 - crea una fecha de expiracion
 // paso 2 - crea un payload para el token con base a la informacion del usuario
 // paso 3 - regresa un token firmado por nuesto servidor con base en una clave secreta

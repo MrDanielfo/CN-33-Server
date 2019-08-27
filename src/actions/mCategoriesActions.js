@@ -13,7 +13,8 @@ export const getMenuCategories = async () => {
     return await MenuCategoryModel.find().populate('menus', [
       'name',
       'description',
-      'menuImage'
+      'menuImage',
+      'price'
     ]);
   } catch (err) {
     console.log(err);
