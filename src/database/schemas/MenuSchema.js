@@ -19,6 +19,10 @@ const MenuSchema = new Schema({
         type: Number,
         required: true
     },
+    menuImage: {
+        type: String,
+        required: false
+    },
     restaurantID: {
         type: Schema.Types.ObjectId,
         ref: 'restaurants',

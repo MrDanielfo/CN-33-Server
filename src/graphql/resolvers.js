@@ -12,6 +12,8 @@
 
  import { createMenu, getMenus, updateMenu } from '../actions/menuActions';
 
+ import { storeUpload } from '../utils/uploader';
+
  
  const books = [
    {
@@ -127,9 +129,17 @@
          return err;
        }
      },
-     addMenu: async (parent, args, context, info) => {
+     addMenu: async (parent, { data }, context, info) => {
        try {
-         const newMenu = await createMenu(args.data);
+         const { createReadStream } = await data.menuImage;
+         const stream = createReadStream();
+         const { url } = await storeUpload(stream);
+         const newMenuInfo = {
+           ...data,
+           menuImage: url
+         }
+
+         const newMenu = await createMenu(newMenuInfo);
          return newMenu;
        } catch (err) {
          return err;

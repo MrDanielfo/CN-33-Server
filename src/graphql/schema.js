@@ -49,6 +49,7 @@ const typeDefs = gql`
     description: String
     menuCategoryID: ID
     price: Int
+    menuImage: String
     restaurantID: ID
   }
 
@@ -60,7 +61,7 @@ const typeDefs = gql`
 
   type Query {
     books: [Book] @AuthDirective
-    getUsers: [User]
+    getUsers: [User] @AuthDirective
     getRestaurants: [Restaurant]
     getRestaurantCategories: [RCategory]
     getMenus: [Menu]
@@ -90,6 +91,7 @@ const typeDefs = gql`
     description: String
     menuCategoryID: ID
     price: Int
+    menuImage: Upload
     restaurantID: ID
   }
 

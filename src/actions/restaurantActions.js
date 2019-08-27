@@ -16,7 +16,7 @@ export const createRestaurant = async (restaurant) => {
 
 export const getRestaurants = async () => {
     try {
-        return await RestaurantModel.find();
+        return await RestaurantModel.find().populate('menus', ['name', 'description']);
     } catch (err) {
         console.log(err)
     }
