@@ -6,6 +6,10 @@ const RestaurantCategorySchema = new Schema({
         type: String,
         required: true
     },
+    restaurantCategoryImage: {
+        type: String,
+        required: false
+    },
     restaurants: [
       {
         type: Schema.Types.ObjectId,

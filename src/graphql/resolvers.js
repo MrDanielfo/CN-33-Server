@@ -90,9 +90,17 @@
          return err;
        }
      },
-     addRestaurant: async (parent, args, context, info) => {
+     addRestaurant: async (parent, { data }, context, info) => {
        try {
-         const newRestaurant = await createRestaurant(args.data);
+          const { createReadStream } = await data.restaurantImage;
+          const stream = createReadStream();
+          const { url } = await storeUpload(stream);
+          const newRestaurantInfo = {
+            ...data,
+            restaurantImage: url
+          };
+
+         const newRestaurant = await createRestaurant(newRestaurantInfo);
          return newRestaurant;
        } catch (err) {
          return err;
@@ -107,9 +115,17 @@
          return err;
        }
      },
-     addRestaurantCategory: async (parent, args, context, info) => {
+     addRestaurantCategory: async (parent, { data }, context, info) => {
        try {
-         const newRCategory = await createRestaurantCategory(args.data);
+         const { createReadStream } = await data.restaurantCategoryImage;
+         const stream = createReadStream();
+         const { url } = await storeUpload(stream);
+         const newRestaurantCategoryInfo = {
+           ...data,
+           restaurantCategoryImage: url
+         };
+
+         const newRCategory = await createRestaurantCategory(newRestaurantCategoryInfo);
          return newRCategory;
        } catch (err) {
          return err;
@@ -154,9 +170,17 @@
          return err;
        }
      },
-     addMenuCategory: async (parent, args, context, info) => {
+     addMenuCategory: async (parent, { data }, context, info) => {
        try {
-         const newMCategory = await createMenuCategory(args.data);
+        const { createReadStream } = await data.menuCategoryImage;
+        const stream = createReadStream();
+        const { url } = await storeUpload(stream);
+        const newMenuCategoryInfo = {
+          ...data,
+          menuCategoryImage: url
+        };
+
+         const newMCategory = await createMenuCategory(newMenuCategoryInfo);
          return newMCategory;
        } catch (err) {
          return err;

@@ -10,7 +10,7 @@ export function storeUpload(stream) {
 
     return new Promise((resolve, reject) => {
         const buffer = cloudinary.v2.uploader.upload_stream((err, result) => {
-            if(error) reject(err);
+            if(err) reject(err);
             resolve(result);
         });
         stream.pipe(buffer);

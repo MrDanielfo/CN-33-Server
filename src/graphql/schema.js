@@ -34,12 +34,14 @@ const typeDefs = gql`
     name: String
     address: String
     restaurantCategoryID: ID
+    restaurantImage: String
     menus: [Menu]
   }
 
   type RCategory {
     _id: ID
     name: String
+    restaurantCategoryImage: String
     restaurants: [Restaurant]
   }
 
@@ -56,6 +58,7 @@ const typeDefs = gql`
   type MCategory {
     _id: ID
     name: String
+    menuCategoryImage: String
     menus: [Menu]
   }
 
@@ -79,11 +82,13 @@ const typeDefs = gql`
   input RestaurantInput {
     name: String!
     address: String!
+    restaurantImage: Upload
     restaurantCategoryID: ID
   }
 
   input RCategoryInput {
     name: String
+    restaurantCategoryImage: Upload
   }
 
   input MenuInput {
@@ -97,6 +102,7 @@ const typeDefs = gql`
 
   input MCategoryInput {
     name: String
+    menuCategoryImage: Upload
   }
 
   type Mutation {

@@ -6,6 +6,10 @@ const MenuCategorySchema = new Schema({
         type: String,
         required: true
     },
+    menuCategoryImage: {
+        type: String,
+        required: false
+    },
     menus: [
       {
         type: Schema.Types.ObjectId,

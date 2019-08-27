@@ -15,6 +15,10 @@ const RestaurantSchema = new Schema({
         ref: 'restaurantcategories',
         required: true
     },
+    restaurantImage: {
+        type: String,
+        required: false
+    },
     menus: [
         {
             type: Schema.Types.ObjectId,
