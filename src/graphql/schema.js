@@ -133,6 +133,10 @@ const typeDefs = gql`
     menuCategoryImage: Upload
   }
 
+  type Subscription {
+     restaurantAdded: Restaurant
+  }
+
   type Query {
     books: [Book] @AuthDirective
     getUsers: [User] @AuthDirective
@@ -141,10 +145,6 @@ const typeDefs = gql`
     getRestaurantCategories: [RCategory]
     getMenus: [Menu]
     getMenuCategories: [MCategory]
-  }
-
-  type Subscription {
-     restaurantAdded: Restaurant
   }
 
   type Mutation {

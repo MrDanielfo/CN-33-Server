@@ -1,6 +1,6 @@
 import { PubSub } from 'apollo-server';
 
-const pubSub = new PubSub;
+const pubsub = new PubSub();
 const RESTAURANT_ADDED = 'RESTAURANT_ADDED';
 
 import {  
@@ -42,7 +42,7 @@ import { storeUpload } from '../utils/uploader';
 
     Subscription: {
       restaurantAdded: {
-        subscribe: (parent, args, context, info) => pubSub.asyncIterator([RESTAURANT_ADDED])
+        subscribe: (parent, args, context, info) => pubsub.asyncIterator([RESTAURANT_ADDED])
       }
     },
    Query: {
@@ -110,7 +110,8 @@ import { storeUpload } from '../utils/uploader';
      },
     doLogin: async (parent, { email, password }, context, info) => {
         try {
-          return await doLoginAction(email, password);
+          const login = await doLoginAction(email, password);
+          return login;
         } catch (err) {
           return error; 
       }
@@ -131,7 +132,7 @@ import { storeUpload } from '../utils/uploader';
          return err;
        }
      },
-     addRestaurant: async (parent, { data }, context, info) => {
+     addRestaurant: async (parent, { data }, context , info) => {
        try {
           const { createReadStream } = await data.restaurantImage;
           const stream = createReadStream();
@@ -143,10 +144,7 @@ import { storeUpload } from '../utils/uploader';
 
         const newRestaurant = await createRestaurant(newRestaurantInfo);
 
-        pubSub.publish(
-           RESTAURANT_ADDED, 
-          { restaurantAdded: { data } }
-        );
+        pubsub.publish(RESTAURANT_ADDED, { restaurantAdded:  newRestaurant  } );
         return newRestaurant;
 
        } catch (err) {

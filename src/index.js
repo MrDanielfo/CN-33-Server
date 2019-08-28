@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 import { getContext, AuthDirective } from './actions/authActions';
 
-//require("dotenv").config();
+require("dotenv").config();
 
 import typeDefs from './graphql/schema';
 import resolvers from './graphql/resolvers';
@@ -25,9 +25,7 @@ const server = new ApolloServer({
   schemaDirectives: {
     AuthDirective: AuthDirective
   },
-  context: async ({req}) => getContext(req),
-  instrospection: true,
-  playground: true
+  context: async ({req}) => getContext(req)
 });
 
 server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
