@@ -85,3 +85,11 @@ export const updateUser = async (filter, update) => {
    }
   
  }
+
+export const findUser = async (filter) => {
+  try {
+    return await UserModel.findOne(filter);
+  } catch (error) {
+    return error;
+  }
+}

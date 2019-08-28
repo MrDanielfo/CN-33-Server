@@ -134,14 +134,14 @@ const typeDefs = gql`
   }
 
   type Subscription {
-     restaurantAdded: Restaurant
+    restaurants: [Restaurant]
   }
 
   type Query {
     books: [Book] @AuthDirective
     getUsers: [User] @AuthDirective
     getDeliveriers: [Deliverier] @AuthDirective
-    getRestaurants: [Restaurant]
+    getRestaurants: [Restaurant] 
     getRestaurantCategories: [RCategory]
     getMenus: [Menu]
     getMenuCategories: [MCategory]
