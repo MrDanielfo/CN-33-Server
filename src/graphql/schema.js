@@ -83,16 +83,6 @@ const typeDefs = gql`
     menus: [Menu]
   }
 
-  type Query {
-    books: [Book] @AuthDirective
-    getUsers: [User] @AuthDirective
-    getDeliveriers: [Deliverier] @AuthDirective
-    getRestaurants: [Restaurant]
-    getRestaurantCategories: [RCategory]
-    getMenus: [Menu]
-    getMenuCategories: [MCategory]
-  }
-
   input UserInput {
     name: String!
     lastName: String!
@@ -141,6 +131,20 @@ const typeDefs = gql`
   input MCategoryInput {
     name: String
     menuCategoryImage: Upload
+  }
+
+  type Query {
+    books: [Book] @AuthDirective
+    getUsers: [User] @AuthDirective
+    getDeliveriers: [Deliverier] @AuthDirective
+    getRestaurants: [Restaurant]
+    getRestaurantCategories: [RCategory]
+    getMenus: [Menu]
+    getMenuCategories: [MCategory]
+  }
+
+  type Subscription {
+     restaurantAdded: Restaurant
   }
 
   type Mutation {

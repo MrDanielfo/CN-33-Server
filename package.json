@@ -5,12 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "nodemon --exec babel-node --watch src ./src/index"
+    "start": "node ./build/index.js",
+    "dev": "nodemon --exec babel-node --watch src ./src/index",
+    "clean": "rm -rf build && mkdir build",
+    "build-server": "babel -d ./build ./src -s",
+    "build" : "npm run clean && npm run build-server"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/runtime": "^7.5.5",
     "apollo-server": "^2.8.2",
     "apollo-server-express": "^2.9.0",
     "bcrypt": "^3.0.6",
@@ -23,6 +27,7 @@
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
     "@babel/node": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "dotenv": "^8.1.0",
     "nodemon": "^1.19.1"
