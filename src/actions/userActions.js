@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
+const { SECRET } = require('../config/index');
+
 import  { UserModel }  from '../database/models/index';
 
 // creamos una funcion para Date que nos regresa un nuevo date con N numero de dias agregados.
@@ -22,7 +24,8 @@ const createToken = (user) => {
     name: user.name,
     exp,
   };
-  const token = jwt.sign(payload, process.env.SECRET);
+  // const token = jwt.sign(payload, process.env.SECRET);
+  const token = jwt.sign(payload, SECRET);
   return { token }
 }
 

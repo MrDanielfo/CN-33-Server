@@ -3,12 +3,21 @@ import mongoose from 'mongoose';
 
 import { getContext, AuthDirective } from './actions/authActions';
 
-require("dotenv").config();
+const { db } = require('./config/index');
+
+
+//require("dotenv").config();
 
 import typeDefs from './graphql/schema';
 import resolvers from './graphql/resolvers';
 
-mongoose.connect(process.env.DATABASE, {
+// mongoose.connect(process.env.DATABASE, {
+//   useCreateIndex: true,
+//   useNewUrlParser: true,
+//   useFindAndModify: false
+// });
+
+mongoose.connect(db.url, {
   useCreateIndex: true,
   useNewUrlParser: true,
   useFindAndModify: false
@@ -28,8 +37,12 @@ const server = new ApolloServer({
   context: async ({req}) => getContext(req)
 });
 
-server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
-   console.log(`🚀  Server ready at ${url}`);
+// server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
+//    console.log(`🚀  Server ready at ${url}`);
+// });
+
+server.listen().then(({ url }) => {
+  console.log(`🚀  Server ready at ${url}`);
 });
 
 /* TESTING */
