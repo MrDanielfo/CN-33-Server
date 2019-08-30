@@ -20,7 +20,9 @@ var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/ge
 
 var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
-var _index = require("../database/models/index");
+var _userActions = require("../actions/userActions");
+
+var _index = require("../config/index");
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -31,8 +33,7 @@ var JWT = require('jsonwebtoken');
 
 var _require = require('apollo-server-express'),
     SchemaDirectiveVisitor = _require.SchemaDirectiveVisitor,
-    AuthenticationError = _require.AuthenticationError; // directiva - valida si esta query necesita un token, de lo contrario no permite ejecutar la consulta
-
+    AuthenticationError = _require.AuthenticationError;
 
 var AuthDirective =
 /*#__PURE__*/
@@ -94,28 +95,64 @@ function (_SchemaDirectiveVisit) {
     }
   }]);
   return AuthDirective;
-}(SchemaDirectiveVisitor); // contexto
-// para autorizar request se hacen los siguientes pasos
-// paso 1 - saca el autorization de los headers en el request
-// paso 2 - valida si el header token esta indefinido
-// paso 3 - verifica que el token sea valido
-// paso 4 - si es un token valido busca al usuario en la base de datos y asigna la informacion del usuario en el contexto
-// paso 5 - si hay algun error siempre regresa lo que trae req
-
+}(SchemaDirectiveVisitor);
 
 var getContext = function getContext(req) {
-  var token = req.headers.authorization;
-  if ((0, _typeof2["default"])(token) === (typeof undefined === "undefined" ? "undefined" : (0, _typeof2["default"])(undefined))) return req;
-  return JWT.verify(token, process.env.SECRET, function (err, result) {
-    if (err) return req;
-    return _index.UserModel.findOne({
-      _id: result._id
-    }).then(function (user) {
-      return _objectSpread({}, req, {
-        user: user
-      });
-    });
-  });
+  try {
+    var token = req.headers.authorization;
+    if ((0, _typeof2["default"])(token) === (typeof undefined === "undefined" ? "undefined" : (0, _typeof2["default"])(undefined))) return req; // return JWT.verify(token, process.env.SECRET, async function (err, result) {
+
+    return JWT.verify(token, _index.SECRET,
+    /*#__PURE__*/
+    function () {
+      var _ref2 = (0, _asyncToGenerator2["default"])(
+      /*#__PURE__*/
+      _regenerator["default"].mark(function _callee2(err, result) {
+        var user;
+        return _regenerator["default"].wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (!err) {
+                  _context2.next = 2;
+                  break;
+                }
+
+                return _context2.abrupt("return", req);
+
+              case 2:
+                _context2.prev = 2;
+                _context2.next = 5;
+                return (0, _userActions.findUser)({
+                  _id: result._id
+                });
+
+              case 5:
+                user = _context2.sent;
+                return _context2.abrupt("return", _objectSpread({}, req, {
+                  user: user
+                }));
+
+              case 9:
+                _context2.prev = 9;
+                _context2.t0 = _context2["catch"](2);
+                return _context2.abrupt("return", req);
+
+              case 12:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[2, 9]]);
+      }));
+
+      return function (_x, _x2) {
+        return _ref2.apply(this, arguments);
+      };
+    }());
+  } catch (err) {
+    return req;
+  }
 };
 
 module.exports = {

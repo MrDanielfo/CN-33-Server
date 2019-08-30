@@ -2,6 +2,11 @@
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
@@ -16,8 +21,7 @@ var _schema = _interopRequireDefault(require("./graphql/schema"));
 
 var _resolvers = _interopRequireDefault(require("./graphql/resolvers"));
 
-//require("dotenv").config();
-_mongoose["default"].connect(process.env.DATABASE, {
+_mongoose["default"].connect('mongodb+srv://mrdanielfo:corvettez6@clustercintanegra-gzdvg.mongodb.net/cintanegra?retryWrites=true&w=majority', {
   useCreateIndex: true,
   useNewUrlParser: true,
   useFindAndModify: false
@@ -59,14 +63,13 @@ var server = new _apolloServer.ApolloServer({
     }
 
     return context;
-  }(),
-  instrospection: true,
-  playground: true
+  }()
 });
-server.listen({
-  port: process.env.PORT || 4000
-}).then(function (_ref2) {
-  var url = _ref2.url;
-  console.log("\uD83D\uDE80  Server ready at ".concat(url));
+server.listen(process.env.PORT || 8080).then(function () {
+  console.log("\uD83D\uDE80  Server ready at 8080");
 });
+/* TESTING */
+
+var _default = server;
+exports["default"] = _default;
 //# sourceMappingURL=index.js.map

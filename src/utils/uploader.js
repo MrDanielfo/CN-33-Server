@@ -1,5 +1,5 @@
 import cloudinary from 'cloudinary';
-const {CLOUD_NAME, API_KEY, API_SECRET } = require('../config/index')
+import { CLOUD_NAME, API_KEY, API_SECRET  } from '../config/index';
 
 export function storeUpload(stream) {
 

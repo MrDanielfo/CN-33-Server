@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.doLoginAction = exports.updateUser = exports.getUsers = exports.createUser = void 0;
+exports.findUser = exports.doLoginAction = exports.updateUser = exports.getUsers = exports.createUser = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
@@ -15,7 +15,9 @@ var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
 var _bcrypt = _interopRequireDefault(require("bcrypt"));
 
-var _index = require("../database/models/index");
+var _index = require("../config/index");
+
+var _index2 = require("../database/models/index");
 
 // creamos una funcion para Date que nos regresa un nuevo date con N numero de dias agregados.
 Date.prototype.addDays = function (days) {
@@ -35,9 +37,9 @@ var createToken = function createToken(user) {
     email: user.email,
     name: user.name,
     exp: exp
-  };
+  }; // const token = jwt.sign(payload, process.env.SECRET);
 
-  var token = _jsonwebtoken["default"].sign(payload, process.env.SECRET);
+  var token = _jsonwebtoken["default"].sign(payload, _index.SECRET);
 
   return {
     token: token
@@ -58,7 +60,7 @@ function () {
           case 0:
             _context.prev = 0;
             _context.next = 3;
-            return _index.UserModel.create(user);
+            return _index2.UserModel.create(user);
 
           case 3:
             newUser = _context.sent;
@@ -97,7 +99,7 @@ function () {
           case 0:
             _context2.prev = 0;
             _context2.next = 3;
-            return _index.UserModel.find();
+            return _index2.UserModel.find();
 
           case 3:
             return _context2.abrupt("return", _context2.sent);
@@ -134,7 +136,7 @@ function () {
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.prev = 0;
-            modified = _index.UserModel.findOneAndUpdate(filter, update, {
+            modified = _index2.UserModel.findOneAndUpdate(filter, update, {
               "new": true
             });
             _context3.next = 4;
@@ -184,7 +186,7 @@ function () {
           case 0:
             _context4.prev = 0;
             _context4.next = 3;
-            return _index.UserModel.findOne({
+            return _index2.UserModel.findOne({
               email: email
             });
 
@@ -237,4 +239,41 @@ function () {
 }();
 
 exports.doLoginAction = doLoginAction;
+
+var findUser =
+/*#__PURE__*/
+function () {
+  var _ref5 = (0, _asyncToGenerator2["default"])(
+  /*#__PURE__*/
+  _regenerator["default"].mark(function _callee5(filter) {
+    return _regenerator["default"].wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            _context5.prev = 0;
+            _context5.next = 3;
+            return _index2.UserModel.findOne(filter);
+
+          case 3:
+            return _context5.abrupt("return", _context5.sent);
+
+          case 6:
+            _context5.prev = 6;
+            _context5.t0 = _context5["catch"](0);
+            return _context5.abrupt("return", _context5.t0);
+
+          case 9:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5, null, [[0, 6]]);
+  }));
+
+  return function findUser(_x6) {
+    return _ref5.apply(this, arguments);
+  };
+}();
+
+exports.findUser = findUser;
 //# sourceMappingURL=userActions.js.map

@@ -33,8 +33,8 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-var pubSub = new _apolloServer.PubSub();
-var RESTAURANT_ADDED = 'RESTAURANT_ADDED';
+var pubsub = new _apolloServer.PubSub();
+var RESTAURANTS = 'RESTAURANTS';
 var _books = [{
   title: 'Harry Potter and the Chamber of Secrets',
   author: 'J.K. Rowling'
@@ -44,9 +44,9 @@ var _books = [{
 }];
 var resolvers = {
   Subscription: {
-    restaurantAdded: {
+    restaurants: {
       subscribe: function subscribe(parent, args, context, info) {
-        return pubSub.asyncIterator([RESTAURANT_ADDED]);
+        return pubsub.asyncIterator([RESTAURANTS]);
       }
     }
   },
@@ -126,6 +126,7 @@ var resolvers = {
       var _getRestaurants2 = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
       _regenerator["default"].mark(function _callee3(parent, args, context, info) {
+        var restaurants;
         return _regenerator["default"].wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
@@ -135,19 +136,23 @@ var resolvers = {
                 return (0, _restaurantActions.getRestaurants)();
 
               case 3:
-                return _context3.abrupt("return", _context3.sent);
+                restaurants = _context3.sent;
+                pubsub.publish(RESTAURANTS, {
+                  restaurants: restaurants
+                });
+                return _context3.abrupt("return", restaurants);
 
-              case 6:
-                _context3.prev = 6;
+              case 8:
+                _context3.prev = 8;
                 _context3.t0 = _context3["catch"](0);
                 return _context3.abrupt("return", _context3.t0);
 
-              case 9:
+              case 11:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[0, 6]]);
+        }, _callee3, null, [[0, 8]]);
       }));
 
       function getRestaurants(_x5, _x6, _x7, _x8) {
@@ -334,7 +339,7 @@ var resolvers = {
       var _doLogin = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
       _regenerator["default"].mark(function _callee9(parent, _ref, context, info) {
-        var email, password;
+        var email, password, login;
         return _regenerator["default"].wrap(function _callee9$(_context9) {
           while (1) {
             switch (_context9.prev = _context9.next) {
@@ -345,19 +350,20 @@ var resolvers = {
                 return (0, _userActions.doLoginAction)(email, password);
 
               case 4:
-                return _context9.abrupt("return", _context9.sent);
+                login = _context9.sent;
+                return _context9.abrupt("return", login);
 
-              case 7:
-                _context9.prev = 7;
+              case 8:
+                _context9.prev = 8;
                 _context9.t0 = _context9["catch"](1);
                 return _context9.abrupt("return", error);
 
-              case 10:
+              case 11:
               case "end":
                 return _context9.stop();
             }
           }
-        }, _callee9, null, [[1, 7]]);
+        }, _callee9, null, [[1, 8]]);
       }));
 
       function doLogin(_x29, _x30, _x31, _x32) {
@@ -477,24 +483,19 @@ var resolvers = {
 
               case 14:
                 newRestaurant = _context12.sent;
-                pubSub.publish(RESTAURANT_ADDED, {
-                  restaurantAdded: {
-                    data: data
-                  }
-                });
                 return _context12.abrupt("return", newRestaurant);
 
-              case 19:
-                _context12.prev = 19;
+              case 18:
+                _context12.prev = 18;
                 _context12.t0 = _context12["catch"](1);
                 return _context12.abrupt("return", _context12.t0);
 
-              case 22:
+              case 21:
               case "end":
                 return _context12.stop();
             }
           }
-        }, _callee12, null, [[1, 19]]);
+        }, _callee12, null, [[1, 18]]);
       }));
 
       function addRestaurant(_x41, _x42, _x43, _x44) {

@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
+import { SECRET } from '../config/index';
+
 import { DeliverierModel } from '../database/models/index';
 
 // creamos una funcion para Date que nos regresa un nuevo date con N numero de dias agregados.
@@ -18,7 +20,8 @@ const createToken = (deliverier) => {
         name: deliverier.name,
         exp,
     };
-    const token = jwt.sign(payload, process.env.SECRET);
+    // const token = jwt.sign(payload, process.env.SECRET);
+    const token = jwt.sign(payload, SECRET);
     return { token }
 }
 

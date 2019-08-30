@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
-const { SECRET } = require('../config/index');
+import { SECRET } from '../config/index';
 
 import  { UserModel }  from '../database/models/index';
 

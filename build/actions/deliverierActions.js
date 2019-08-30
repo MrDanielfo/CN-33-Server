@@ -15,7 +15,9 @@ var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
 var _bcrypt = _interopRequireDefault(require("bcrypt"));
 
-var _index = require("../database/models/index");
+var _index = require("../config/index");
+
+var _index2 = require("../database/models/index");
 
 // creamos una funcion para Date que nos regresa un nuevo date con N numero de dias agregados.
 Date.prototype.addDays = function (days) {
@@ -31,9 +33,9 @@ var createToken = function createToken(deliverier) {
     email: deliverier.email,
     name: deliverier.name,
     exp: exp
-  };
+  }; // const token = jwt.sign(payload, process.env.SECRET);
 
-  var token = _jsonwebtoken["default"].sign(payload, process.env.SECRET);
+  var token = _jsonwebtoken["default"].sign(payload, _index.SECRET);
 
   return {
     token: token
@@ -55,7 +57,7 @@ function () {
           case 0:
             _context.prev = 0;
             _context.next = 3;
-            return _index.DeliverierModel.create(deliverier);
+            return _index2.DeliverierModel.create(deliverier);
 
           case 3:
             newDeliverier = _context.sent;
@@ -94,7 +96,7 @@ function () {
           case 0:
             _context2.prev = 0;
             _context2.next = 3;
-            return _index.DeliverierModel.find();
+            return _index2.DeliverierModel.find();
 
           case 3:
             return _context2.abrupt("return", _context2.sent);
@@ -134,7 +136,7 @@ function () {
           case 0:
             _context3.prev = 0;
             _context3.next = 3;
-            return _index.DeliverierModel.findOne({
+            return _index2.DeliverierModel.findOne({
               email: email
             });
 

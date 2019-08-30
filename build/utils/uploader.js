@@ -9,11 +9,18 @@ exports.storeUpload = storeUpload;
 
 var _cloudinary = _interopRequireDefault(require("cloudinary"));
 
+var _index = require("../config/index");
+
 function storeUpload(stream) {
+  // cloudinary.config({
+  //     cloud_name : process.env.CLOUD_NAME,
+  //     api_key: process.env.API_KEY,
+  //     api_secret: process.env.API_SECRET
+  // })
   _cloudinary["default"].config({
-    cloud_name: process.env.CLOUD_NAME,
-    api_key: process.env.API_KEY,
-    api_secret: process.env.API_SECRET
+    cloud_name: _index.CLOUD_NAME,
+    api_key: _index.API_KEY,
+    api_secret: _index.API_SECRET
   });
 
   return new Promise(function (resolve, reject) {

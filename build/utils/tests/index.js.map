@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../src/utils/tests/index.js"],"names":["suma","a","b","module","exports"],"mappings":";;AAAA,IAAMA,IAAI,GAAG,SAAPA,IAAO,CAACC,CAAD,EAAIC,CAAJ;AAAA,SAAUD,CAAC,GAAGC,CAAd;AAAA,CAAb;;AAEAC,MAAM,CAACC,OAAP,GAAiBJ,IAAjB","sourcesContent":["const suma = (a, b) => a + b;\r\n\r\nmodule.exports = suma;"],"file":"index.js"}

@@ -1,23 +1,14 @@
+
 import { ApolloServer } from 'apollo-server';
 import mongoose from 'mongoose';
 
 import { getContext, AuthDirective } from './actions/authActions';
 
-const { db } = require('./config/index');
-
-
-//require("dotenv").config();
-
 import typeDefs from './graphql/schema';
 import resolvers from './graphql/resolvers';
 
-// mongoose.connect(process.env.DATABASE, {
-//   useCreateIndex: true,
-//   useNewUrlParser: true,
-//   useFindAndModify: false
-// });
 
-mongoose.connect(db.url, {
+mongoose.connect('mongodb+srv://mrdanielfo:corvettez6@clustercintanegra-gzdvg.mongodb.net/cintanegra?retryWrites=true&w=majority', {
   useCreateIndex: true,
   useNewUrlParser: true,
   useFindAndModify: false
@@ -37,12 +28,8 @@ const server = new ApolloServer({
   context: async ({req}) => getContext(req)
 });
 
-// server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
-//    console.log(`🚀  Server ready at ${url}`);
-// });
-
-server.listen().then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`);
+server.listen(process.env.PORT || 8080).then(() => {
+  console.log(`🚀  Server ready at 8080`);
 });
 
 /* TESTING */

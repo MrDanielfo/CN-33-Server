@@ -1,7 +1,7 @@
 // paquetes que necesitamos importar
 const JWT = require('jsonwebtoken');
 import { findUser  } from '../actions/userActions';
-const { SECRET } = require('../config/index');
+import { SECRET } from '../config/index';
 
 const { SchemaDirectiveVisitor, AuthenticationError } = require('apollo-server-express');
 
