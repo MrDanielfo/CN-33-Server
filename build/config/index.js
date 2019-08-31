@@ -1,6 +1,6 @@
 "use strict";
 
-var NODE_ENV = process.env.NODE_ENV || 'env';
+var NODE_ENV = process.env.NODE_ENV || "dev";
 var ENVS = {
   dev: {
     PORT: 8080,
@@ -9,7 +9,7 @@ var ENVS = {
     API_KEY: "975468616714216",
     API_SECRET: "BvNjuqbKtG8cvGjLQcW5uNy-MvQ",
     db: {
-      url: 'mongodb+srv://mrdanielfo:corvettez6@clustercintanegra-gzdvg.mongodb.net/cintanegra?retryWrites=true&w=majority'
+      url: "mongodb+srv://mrdanielfo:corvettez6@clustercintanegra-gzdvg.mongodb.net/cintanegra?retryWrites=true&w=majority"
     }
   },
   production: {
@@ -19,7 +19,7 @@ var ENVS = {
     API_KEY: process.env.API_KEY,
     API_SECRET: process.env.API_SECRET,
     db: {
-      url: 'mongodb+srv://mrdanielfo:corvettez6@clustercintanegra-gzdvg.mongodb.net/cintanegra?retryWrites=true&w=majority'
+      url: "mongodb+srv://mrdanielfo:corvettez6@clustercintanegra-gzdvg.mongodb.net/cintanegra?retryWrites=true&w=majority"
     }
   }
 };

@@ -1,4 +1,4 @@
-const NODE_ENV = process.env.NODE_ENV || 'env';
+const NODE_ENV = process.env.NODE_ENV || "dev";
 
 const ENVS = {
     dev: {
@@ -9,7 +9,7 @@ const ENVS = {
         API_SECRET: "BvNjuqbKtG8cvGjLQcW5uNy-MvQ",
 
         db: {  
-            url: 'mongodb+srv://mrdanielfo:corvettez6@clustercintanegra-gzdvg.mongodb.net/cintanegra?retryWrites=true&w=majority'
+            url: "mongodb+srv://mrdanielfo:corvettez6@clustercintanegra-gzdvg.mongodb.net/cintanegra?retryWrites=true&w=majority"
         }
     
     },
@@ -21,7 +21,7 @@ const ENVS = {
         API_SECRET: process.env.API_SECRET,
         
         db: {
-            url: 'mongodb+srv://mrdanielfo:corvettez6@clustercintanegra-gzdvg.mongodb.net/cintanegra?retryWrites=true&w=majority'
+            url: "mongodb+srv://mrdanielfo:corvettez6@clustercintanegra-gzdvg.mongodb.net/cintanegra?retryWrites=true&w=majority"
         }
         
     }
