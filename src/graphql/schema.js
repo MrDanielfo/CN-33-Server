@@ -1,7 +1,6 @@
 import { gql } from 'apollo-server';
 
 const typeDefs = gql`
-  
   # Directive
   directive @AuthDirective on QUERY | FIELD_DEFINITION | FIELD
 
@@ -138,20 +137,21 @@ const typeDefs = gql`
   }
 
   type Query {
-    books: [Book] @AuthDirective
+    books: [Book]
     getUsers: [User] @AuthDirective
     getDeliveriers: [Deliverier] @AuthDirective
-    getRestaurants: [Restaurant] 
-    getRestaurantCategories: [RCategory]
-    getMenus: [Menu]
-    getMenuCategories: [MCategory]
+    getRestaurants: [Restaurant] @AuthDirective
+    getRestaurant(restaurantID: ID): Restaurant
+    getRestaurantCategories: [RCategory] @AuthDirective
+    getMenus: [Menu] @AuthDirective
+    getMenuCategories: [MCategory] @AuthDirective
   }
 
   type Mutation {
     addUser(data: UserInput): Token
     addDeliverier(data: DeliverierInput): Token
-    doLogin(email: String, password: String) : Token
-    doLoginDeliveriers(email: String, password: String) : Token
+    doLogin(email: String, password: String): Token
+    doLoginDeliveriers(email: String, password: String): Token
     updateUser(data: UserInput, userID: ID): User
     addRestaurant(data: RestaurantInput): Restaurant
     updateRestaurant(data: RestaurantInput, restaurantID: ID): Restaurant

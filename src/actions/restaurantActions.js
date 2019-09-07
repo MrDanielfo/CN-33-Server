@@ -24,6 +24,20 @@ export const getRestaurants = async () => {
     }
 };
 
+export const getRestaurant = async (restaurantID) => {
+    try {
+        return await RestaurantModel.findOne({ _id: restaurantID })
+          .populate('menus', ['name', 'description', 'menuImage', 'price'])
+          .populate('restaurantCategoryID', [
+            'name',
+            'restaurantCategoryImage'
+          ]);
+
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 export const updateRestaurant = async (filter, update) => {
     try {
         const modified = RestaurantModel.findOneAndUpdate(filter, update, { new: true });

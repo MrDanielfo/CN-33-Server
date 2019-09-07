@@ -28,8 +28,8 @@ const server = new ApolloServer({
   context: async ({req}) => getContext(req)
 });
 
-server.listen(process.env.PORT || 8080).then(() => {
-  console.log(`🚀  Server ready at 8080`);
+server.listen(process.env.PORT || 4000).then(() => {
+  console.log(`🚀  Server ready at 4000`);
 });
 
 /* TESTING */

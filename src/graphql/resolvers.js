@@ -12,7 +12,7 @@ import {
 
 import { createDeliverier, getDeliveriers, doLoginDeliveriers } from '../actions/deliverierActions';
 
-import { createRestaurant, getRestaurants, updateRestaurant } from '../actions/restaurantActions';
+import { createRestaurant, getRestaurants, updateRestaurant, getRestaurant } from '../actions/restaurantActions';
 
 import { createRestaurantCategory, getRestaurantCategories, updateRestaurantCategory } from '../actions/rCategoriesActions';
 
@@ -39,11 +39,11 @@ import { storeUpload } from '../utils/uploader';
  ];
 
  const resolvers = {
-   
    Subscription: {
-      restaurants: {
-        subscribe: (parent, args, context, info) => pubsub.asyncIterator([RESTAURANTS])
-      }
+     restaurants: {
+       subscribe: (parent, args, context, info) =>
+         pubsub.asyncIterator([RESTAURANTS])
+     }
    },
    Query: {
      books: () => books,
@@ -54,18 +54,26 @@ import { storeUpload } from '../utils/uploader';
          return err;
        }
      },
-     getDeliveriers: async() => {
-        try {
-          return await getDeliveriers();
-        } catch (err) {
-          return err; 
-        }
+     getDeliveriers: async () => {
+       try {
+         return await getDeliveriers();
+       } catch (err) {
+         return err;
+       }
      },
      getRestaurants: async (parent, args, context, info) => {
-       try { 
+       try {
          const restaurants = await getRestaurants();
-         pubsub.publish(RESTAURANTS, {restaurants: restaurants});
+         pubsub.publish(RESTAURANTS, { restaurants: restaurants });
          return restaurants;
+       } catch (err) {
+         return err;
+       }
+     },
+     getRestaurant: async (parent, { restaurantID }, context, info) => {
+       try {
+         const restaurant = await getRestaurant(restaurantID);
+         return restaurant;
        } catch (err) {
          return err;
        }
@@ -93,38 +101,36 @@ import { storeUpload } from '../utils/uploader';
      }
    },
    Mutation: {
-     addUser: async (parent, args, context , info) => {
+     addUser: async (parent, args, context, info) => {
        try {
-        const newUser = await createUser(args.data);
-        return newUser;
-
+         const newUser = await createUser(args.data);
+         return newUser;
        } catch (err) {
          return err;
        }
-       
      },
-     addDeliverier: async(parent, args, context, info) => {
-        try {
-          return await createDeliverier(args.data);
-        } catch (err) {
-          return err;
-        }
+     addDeliverier: async (parent, args, context, info) => {
+       try {
+         return await createDeliverier(args.data);
+       } catch (err) {
+         return err;
+       }
      },
-    doLogin: async (parent, { email, password }, context, info) => {
-        try {
-          const login = await doLoginAction(email, password);
-          return login;
-        } catch (err) {
-          return error; 
-      }
-    },
-    doLoginDeliveriers: async (parent, { email, password }, context, info) => {
-      try {
-          return await doLoginDeliveriers(email, password);
-        } catch (err) {
-          return error;
-        }
-    },
+     doLogin: async (parent, { email, password }, context, info) => {
+       try {
+         const login = await doLoginAction(email, password);
+         return login;
+       } catch (err) {
+         return error;
+       }
+     },
+     doLoginDeliveriers: async (parent, { email, password }, context, info) => {
+       try {
+         return await doLoginDeliveriers(email, password);
+       } catch (err) {
+         return error;
+       }
+     },
      updateUser: async (parent, { data, userID }, context, info) => {
        try {
          const filter = { _id: userID };
@@ -134,24 +140,28 @@ import { storeUpload } from '../utils/uploader';
          return err;
        }
      },
-     addRestaurant: async (parent, { data }, context , info) => {
+     addRestaurant: async (parent, { data }, context, info) => {
        try {
-          const { createReadStream } = await data.restaurantImage;
-          const stream = createReadStream();
-          const { url } = await storeUpload(stream);
-          const newRestaurantInfo = {
-            ...data,
-            restaurantImage: url
-          };
+         const { createReadStream } = await data.restaurantImage;
+         const stream = createReadStream();
+         const { url } = await storeUpload(stream);
+         const newRestaurantInfo = {
+           ...data,
+           restaurantImage: url
+         };
 
-        const newRestaurant = await createRestaurant(newRestaurantInfo);
-        return newRestaurant;
-
+         const newRestaurant = await createRestaurant(newRestaurantInfo);
+         return newRestaurant;
        } catch (err) {
          return err;
        }
      },
-     updateRestaurant: async (parent, { data, restaurantID }, context, info ) => {
+     updateRestaurant: async (
+       parent,
+       { data, restaurantID },
+       context,
+       info
+     ) => {
        try {
          const filter = { _id: restaurantID };
          const update = { $set: { ...data } };
@@ -170,7 +180,9 @@ import { storeUpload } from '../utils/uploader';
            restaurantCategoryImage: url
          };
 
-         const newRCategory = await createRestaurantCategory(newRestaurantCategoryInfo);
+         const newRCategory = await createRestaurantCategory(
+           newRestaurantCategoryInfo
+         );
          return newRCategory;
        } catch (err) {
          return err;
@@ -198,7 +210,7 @@ import { storeUpload } from '../utils/uploader';
          const newMenuInfo = {
            ...data,
            menuImage: url
-         }
+         };
 
          const newMenu = await createMenu(newMenuInfo);
          return newMenu;
@@ -206,7 +218,7 @@ import { storeUpload } from '../utils/uploader';
          return err;
        }
      },
-     updateMenu: async (parent, { data, menuID }, context, info ) => {
+     updateMenu: async (parent, { data, menuID }, context, info) => {
        try {
          const filter = { _id: menuID };
          const update = { $set: { ...data } };
@@ -217,13 +229,13 @@ import { storeUpload } from '../utils/uploader';
      },
      addMenuCategory: async (parent, { data }, context, info) => {
        try {
-        const { createReadStream } = await data.menuCategoryImage;
-        const stream = createReadStream();
-        const { url } = await storeUpload(stream);
-        const newMenuCategoryInfo = {
-          ...data,
-          menuCategoryImage: url
-        };
+         const { createReadStream } = await data.menuCategoryImage;
+         const stream = createReadStream();
+         const { url } = await storeUpload(stream);
+         const newMenuCategoryInfo = {
+           ...data,
+           menuCategoryImage: url
+         };
 
          const newMCategory = await createMenuCategory(newMenuCategoryInfo);
          return newMCategory;
