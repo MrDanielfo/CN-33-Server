@@ -16,6 +16,19 @@ export const getRestaurantCategories = async () => {
   }
 };
 
+export const getRestaurantCategorie = async (rCategoryID) => {
+  try {
+    return await RestaurantCategoryModel.findOne({ _id: rCategoryID })
+      .populate('restaurants', [
+        'name',
+        'address'
+      ]);
+
+  } catch (err) {
+    return err;
+  }
+};
+
 export const updateRestaurantCategory = async (filter, update) => {
   try {
     const modified = RestaurantCategoryModel.findOneAndUpdate(filter, update, { new: true });

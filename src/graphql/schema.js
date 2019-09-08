@@ -141,8 +141,9 @@ const typeDefs = gql`
     getUsers: [User] @AuthDirective
     getDeliveriers: [Deliverier] @AuthDirective
     getRestaurants: [Restaurant] @AuthDirective
-    getRestaurant(restaurantID: ID): Restaurant
+    getRestaurant(restaurantID: String): Restaurant
     getRestaurantCategories: [RCategory] @AuthDirective
+    getRestaurantCategory(rCategoryID: String): RCategory
     getMenus: [Menu] @AuthDirective
     getMenuCategories: [MCategory] @AuthDirective
   }

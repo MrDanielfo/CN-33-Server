@@ -34,7 +34,7 @@ export const getRestaurant = async (restaurantID) => {
           ]);
 
     } catch (err) {
-        console.log(err);
+        return err;
     }
 }
 

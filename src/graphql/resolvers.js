@@ -14,7 +14,7 @@ import { createDeliverier, getDeliveriers, doLoginDeliveriers } from '../actions
 
 import { createRestaurant, getRestaurants, updateRestaurant, getRestaurant } from '../actions/restaurantActions';
 
-import { createRestaurantCategory, getRestaurantCategories, updateRestaurantCategory } from '../actions/rCategoriesActions';
+import { createRestaurantCategory, getRestaurantCategories, updateRestaurantCategory, getRestaurantCategorie } from '../actions/rCategoriesActions';
 
 import {
    createMenuCategory,
@@ -70,10 +70,10 @@ import { storeUpload } from '../utils/uploader';
          return err;
        }
      },
-     getRestaurant: async (parent, { restaurantID }, context, info) => {
+     getRestaurant: async (parent, args, context, info) => {
        try {
-         const restaurant = await getRestaurant(restaurantID);
-         return restaurant;
+         const restaurant = await getRestaurant(args.restaurantID);
+        return restaurant;
        } catch (err) {
          return err;
        }
@@ -81,6 +81,14 @@ import { storeUpload } from '../utils/uploader';
      getRestaurantCategories: async (parent, args, context, info) => {
        try {
          return await getRestaurantCategories();
+       } catch (err) {
+         return err;
+       }
+     },
+     getRestaurantCategory: async (parent, args, context, info) => {
+       try {
+         const rCategory = await getRestaurantCategorie(args.rCategoryID);
+         return rCategory;
        } catch (err) {
          return err;
        }
