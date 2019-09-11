@@ -21,6 +21,20 @@ export const getMenuCategories = async () => {
   }
 };
 
+export const getMenuCategory = async (mCategoryID) => {
+  try {
+    return await MenuCategoryModel.findOne({_id: mCategoryID }).populate('menus', [
+      'name',
+      'description',
+      'menuImage',
+      'price',
+      'restaurantID'
+    ]);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const updateMenuCategory = async (filter, update) => {
   try {
     const modified = MenuCategoryModel.findOneAndUpdate(filter, update, {new: true});

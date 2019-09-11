@@ -147,6 +147,7 @@ const typeDefs = gql`
     getRestaurantCategory(rCategoryID: String): RCategory
     getMenus: [Menu] @AuthDirective
     getMenuCategories: [MCategory] @AuthDirective
+    getMenuCategory(mCategoryID: String): MCategory 
   }
 
   type Mutation {

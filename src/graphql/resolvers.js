@@ -20,7 +20,8 @@ import { createRestaurantCategory, getRestaurantCategories, updateRestaurantCate
 import {
    createMenuCategory,
    getMenuCategories,
-   updateMenuCategory
+   updateMenuCategory,
+   getMenuCategory
  } from '../actions/mCategoriesActions';
 
 import { createMenu, getMenus, updateMenu } from '../actions/menuActions';
@@ -108,6 +109,14 @@ import { storeUpload } from '../utils/uploader';
      getMenuCategories: async (parent, args, context, info) => {
        try {
          return await getMenuCategories();
+       } catch (err) {
+         return err;
+       }
+     },
+     getMenuCategory: async (parent, args, context, info) => {
+       try {
+         const mCategory = await getMenuCategory(args.mCategoryID);
+         return mCategory;
        } catch (err) {
          return err;
        }
