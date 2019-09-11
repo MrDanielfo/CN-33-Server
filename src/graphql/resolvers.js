@@ -2,6 +2,7 @@ import { PubSub } from 'apollo-server';
 
 const pubsub = new PubSub();
 const RESTAURANTS = 'RESTAURANTS';
+const RESTAURANT_ADDED = 'RESTAURANT_ADDED';
 
 import {  
    createUser, 
@@ -43,6 +44,10 @@ import { storeUpload } from '../utils/uploader';
      restaurants: {
        subscribe: (parent, args, context, info) =>
          pubsub.asyncIterator([RESTAURANTS])
+     },
+     restaurantAdded: {
+       subscribe: (parent, args, context, info) =>
+         pubsub.asyncIterator([RESTAURANT_ADDED])
      }
    },
    Query: {
@@ -159,6 +164,7 @@ import { storeUpload } from '../utils/uploader';
          };
 
          const newRestaurant = await createRestaurant(newRestaurantInfo);
+         pubsub.publish(RESTAURANT_ADDED, { restaurantAdded: newRestaurant });
          return newRestaurant;
        } catch (err) {
          return err;

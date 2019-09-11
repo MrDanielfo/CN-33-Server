@@ -134,6 +134,7 @@ const typeDefs = gql`
 
   type Subscription {
     restaurants: [Restaurant]
+    restaurantAdded: Restaurant
   }
 
   type Query {
